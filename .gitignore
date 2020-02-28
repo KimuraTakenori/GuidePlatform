@@ -1,0 +1,7 @@
+/.idea/
+/GuidePlatform_Databases/
+/GuidePlatform_Workspace/Media/
+/*/migrations
+*.pyc
+*.DS_Store*
+*~
