@@ -1,14 +1,17 @@
 #!/usr/bin/env python
 
 import os
+import sys
 from pathlib import Path
 import subprocess
 
+import django
+
 # Deletes
 # - django_home/*/migrations/*.py
-# - django_home/*/*.sqlite3
+# - django_home/GuidePlatform_Databases/*.sqlite3
 
-estim_proj_home = Path(os.path.dirname(os.path.abspath(__file__))).parent
+estim_proj_home = str(Path(os.path.dirname(os.path.abspath(__file__))).parent)
 database_folder = os.path.join(estim_proj_home, "GuidePlatform_Databases")
 # print(estim_proj_home, str(estim_proj_home))
 
@@ -36,8 +39,13 @@ for file3rd_b in os.listdir(database_folder):
         os.remove(filpath)
         print("Deleted sqlite file:", filpath)
 
-os.chdir(estim_proj_home)
+if estim_proj_home not in sys.path:
+    sys.path.insert(0, estim_proj_home)
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'GuidePlatform.settings')
+django.setup()
 
+os.chdir(estim_proj_home)
+# print(os.getcwd())
 coms = (
     [ "python", "./manage.py", "makemigrations" ],
     [ "python", "./manage.py", "makemigrations", "appGuide" ],
@@ -49,13 +57,8 @@ for icom in coms:
     print("--- Invoking :", " ".join(icom))
     subprocess.run(icom) # shell = True?
 
-# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'IAB_TsuruCoho2.settings')
-# try:
-#     from django.core.management import execute_from_command_line
-# except ImportError as exc:
-#     raise ImportError(
-#         "Couldn't import Django. Are you sure it's installed and "
-#         "available on your PYTHONPATH environment variable? Did you "
-#         "forget to activate a virtual environment?"
-#     ) from exc
-# execute_from_command_line([ "./manage.py", "makemigrations" ])
+from django.contrib.auth.models import User
+User.objects.all().delete()
+User.objects.create_superuser('admin',
+                              'golgo8128@yahoo.co.jp',
+                              'admin')
