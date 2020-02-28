@@ -2,6 +2,7 @@
 /GuidePlatform_Databases/
 /GuidePlatform_Workspace/Media/
 /*/migrations
+__pycache__/
 *.pyc
 *.DS_Store*
 *~

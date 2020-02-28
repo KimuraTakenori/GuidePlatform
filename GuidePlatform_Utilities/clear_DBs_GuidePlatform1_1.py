@@ -9,7 +9,8 @@ import subprocess
 # - django_home/*/*.sqlite3
 
 estim_proj_home = Path(os.path.dirname(os.path.abspath(__file__))).parent
-print(estim_proj_home, str(estim_proj_home))
+database_folder = os.path.join(estim_proj_home, "GuidePlatform_Databases")
+# print(estim_proj_home, str(estim_proj_home))
 
 for dir2nd_b in os.listdir(estim_proj_home):
     dir2nd = os.path.join(estim_proj_home, dir2nd_b)
@@ -27,29 +28,26 @@ for dir2nd_b in os.listdir(estim_proj_home):
                         os.remove(filpath)
                         print("Deleted migration-related file:", filpath)
 
-        for file3rd_b in os.listdir(dir2nd):
-            filpath = os.path.join(dir2nd, file3rd_b)
-            if (os.path.isfile(filpath) and
-                    file3rd_b.lower().endswith("sqlite3")):
-                os.remove(filpath)
-                print("Deleted sqlite file:", filpath)
+os.makedirs(database_folder, exist_ok = True)
+for file3rd_b in os.listdir(database_folder):
+    filpath = os.path.join(database_folder, file3rd_b)
+    if (os.path.isfile(filpath) and
+            file3rd_b.lower().endswith("sqlite3")):
+        os.remove(filpath)
+        print("Deleted sqlite file:", filpath)
 
-# os.chdir(estim_proj_home)
-#
-# coms = (
-#     [ "python", "./manage.py", "makemigrations" ],
-#     [ "python", "./manage.py", "makemigrations", "appTMCS" ],
-#     [ "python", "./manage.py", "makemigrations", "appMHoutBatch" ],
-#
-#     [ "python", "./manage.py", "migrate" ],
-#     [ "python", "./manage.py", "migrate", "--database=tmcs" ],
-#     [ "python", "./manage.py", "migrate", "--database=mhoutb" ],
-#
-# )
-#
-# for icom in coms:
-#     print("--- Invoking :", " ".join(icom))
-#     subprocess.run(icom)
+os.chdir(estim_proj_home)
+
+coms = (
+    [ "python", "./manage.py", "makemigrations" ],
+    [ "python", "./manage.py", "makemigrations", "appGuide" ],
+    [ "python", "./manage.py", "migrate" ],
+    [ "python", "./manage.py", "migrate", "--database=guide" ],
+)
+
+for icom in coms:
+    print("--- Invoking :", " ".join(icom))
+    subprocess.run(icom) # shell = True?
 
 # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'IAB_TsuruCoho2.settings')
 # try:

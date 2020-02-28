@@ -16,6 +16,18 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+########## Guide Platform System ##########
+
+# IAB MetaD 1F System database folder
+
+GUIDEPLATFORM_DB_DIR  = os.path.join(BASE_DIR, "GuidePlatform_Databases")
+
+# IAB MetaD 1F System-specific. Variable name must be capital letters.
+
+GUIDEPLATFORM_WORKDIR = os.path.join(BASE_DIR, "GuidePlatform_Workspace")
+
+########## Guide Platform System (End) ##########
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -77,8 +89,14 @@ WSGI_APPLICATION = 'GuidePlatform.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'NAME': os.path.join(GUIDEPLATFORM_DB_DIR, 'db.sqlite3'),
+    },
+
+    "guide" : {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(GUIDEPLATFORM_DB_DIR, 'db_guide_afe.sqlite3'),
+    },
+
 }
 
 
