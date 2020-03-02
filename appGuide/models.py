@@ -2,10 +2,10 @@ from django.db import models
 
 # Create your models here.
 
-#性別データ
+#性別名データ
 class Gender(models.Model):
 
-    gender_name = models.CharField(max_length = 32, null = True, blank = True,
+    gender_name = models.CharField(max_length = 32,
                                    verbose_name = "性別名")
 
     def __str__(self):
@@ -13,36 +13,35 @@ class Gender(models.Model):
         return self.gender_name
 
     class Meta:
-        verbose_name        = "性別"
-        verbose_name_plural = "性別"
+        verbose_name        = "性別名データ"
+        verbose_name_plural = "性別名データ"
 
 #利用者データ
 class Tourist(models.Model):
 
-    user_sei = models.CharField(max_length = 32, null = True, blank = True,
+    user_sei = models.CharField(max_length = 32,
                                 verbose_name = "利用者姓")
-    user_mei = models.CharField(max_length = 32, null = True, blank = True,
+    user_mei = models.CharField(max_length = 32,
                                 verbose_name = "利用者名")
-    user_seifuri = models.CharField(max_length = 32, null = True, blank = True,
+    user_seifuri = models.CharField(max_length = 32,
                                     verbose_name = "利用者姓(ふりがな)")
-    user_meifuri = models.CharField(max_length = 32, null = True, blank = True,
+    user_meifuri = models.CharField(max_length = 32,
                                     verbose_name = "利用者名(ふりがな)")
     user_gender = models.ForeignKey(Gender,
                                     on_delete=models.CASCADE,
-                                    null = True, blank = True,
                                     verbose_name = "性別")
-    user_seinen = models.DateField(null = True, blank = True, verbose_name = "生年月日")
-    user_tel = models.SlugField(max_length = 13, null = True, blank = True,
+    user_seinen = models.DateField(verbose_name = "生年月日")
+    user_tel = models.SlugField(max_length = 13,
                                 verbose_name = "電話番号")
-    user_mail = models.EmailField(max_length = 50, null = True, blank = True,
+    user_mail = models.EmailField(max_length = 50,
                                   verbose_name = "メールアドレス")
-    user_pass = models.SlugField(max_length = 20, null = True, blank = True,
+    user_pass = models.SlugField(max_length = 20,
                                  verbose_name = "パスワード")
-    user_post = models.SlugField(max_length = 8, null = True, blank = True,
+    user_post = models.SlugField(max_length = 8,
                                  verbose_name = "郵便番号")
-    user_address1 = models.CharField(max_length = 10, null = True, blank = True,
+    user_address1 = models.CharField(max_length = 10,
                                      verbose_name = "都道府県")
-    user_address2 = models.CharField(max_length = 32, null = True, blank = True,
+    user_address2 = models.CharField(max_length = 32,
                                      verbose_name = "市区町村")
     user_address3 = models.CharField(max_length = 64, null = True, blank = True,
                                      verbose_name = "番地・建物")
@@ -58,30 +57,29 @@ class Tourist(models.Model):
 #ガイドデータ
 class Guide(models.Model):
 
-    guide_sei = models.CharField(max_length = 32, null = True, blank = True,
+    guide_sei = models.CharField(max_length = 32,
                                 verbose_name = "ガイド姓")
-    guide_mei = models.CharField(max_length = 32, null = True, blank = True,
+    guide_mei = models.CharField(max_length = 32,
                                 verbose_name = "ガイド名")
-    guide_seifuri = models.CharField(max_length = 32, null = True, blank = True,
+    guide_seifuri = models.CharField(max_length = 32,
                                     verbose_name = "ガイド姓(ふりがな)")
-    guide_meifuri = models.CharField(max_length = 32, null = True, blank = True,
+    guide_meifuri = models.CharField(max_length = 32,
                                     verbose_name = "ガイド名(ふりがな)")
     guide_gender = models.ForeignKey(Gender,
                                     on_delete=models.CASCADE,
-                                    null = True, blank = True,
                                     verbose_name = "性別")
-    guide_seinen = models.DateField(null = True, blank = True, verbose_name = "生年月日")
-    guide_tel = models.SlugField(max_length = 13, null = True, blank = True,
+    guide_seinen = models.DateField(verbose_name = "生年月日")
+    guide_tel = models.SlugField(max_length = 13,
                                 verbose_name = "電話番号")
-    guide_mail = models.EmailField(max_length = 50, null = True, blank = True,
+    guide_mail = models.EmailField(max_length = 50,
                                   verbose_name = "メールアドレス")
-    guide_pass = models.SlugField(max_length = 20, null = True, blank = True,
+    guide_pass = models.SlugField(max_length = 20,
                                  verbose_name = "パスワード")
-    guide_post = models.SlugField(max_length = 8, null = True, blank = True,
+    guide_post = models.SlugField(max_length = 8,
                                  verbose_name = "郵便番号")
-    guide_address1 = models.CharField(max_length = 10, null = True, blank = True,
+    guide_address1 = models.CharField(max_length = 10,
                                      verbose_name = "都道府県")
-    guide_address2 = models.CharField(max_length = 32, null = True, blank = True,
+    guide_address2 = models.CharField(max_length = 32,
                                      verbose_name = "市区町村")
     guide_address3 = models.CharField(max_length = 64, null = True, blank = True,
                                      verbose_name = "番地・建物")
@@ -101,11 +99,11 @@ class Guide(models.Model):
 #プレ観光地データ
 class Preplace(models.Model):
 
-    preplace_address1 = models.CharField(max_length = 10, null = True, blank = True,
+    preplace_address1 = models.CharField(max_length = 10,
                                      verbose_name = "都道府県")
-    preplace_address2 = models.CharField(max_length = 32, null = True, blank = True,
+    preplace_address2 = models.CharField(max_length = 32,
                                      verbose_name = "市区町村")
-    preplace_name = models.CharField(max_length = 64, null = True, blank = True,
+    preplace_name = models.CharField(max_length = 64,
                                      verbose_name = "観光地名称")
     preplace_info = models.CharField(max_length = 500, null = True, blank = True,
                                      verbose_name = "観光地情報")
@@ -114,14 +112,18 @@ class Preplace(models.Model):
 
         return self.preplace_address1 + " " + self.preplace_address2 + " " + self.preplace_name
 
+    class Meta:
+        verbose_name        = "プレ観光地データ"
+        verbose_name_plural = "プレ観光地データ"
+
 #観光地データ
 class Place(models.Model):
 
-    place_address1 = models.CharField(max_length = 10, null = True, blank = True,
+    place_address1 = models.CharField(max_length = 10,
                                      verbose_name = "都道府県")
-    place_address2 = models.CharField(max_length = 32, null = True, blank = True,
+    place_address2 = models.CharField(max_length = 32,
                                      verbose_name = "市区町村")
-    place_name = models.CharField(max_length = 64, null = True, blank = True,
+    place_name = models.CharField(max_length = 64,
                                      verbose_name = "観光地名称")
     place_info = models.CharField(max_length = 500, null = True, blank = True,
                                      verbose_name = "観光地情報")
@@ -130,47 +132,64 @@ class Place(models.Model):
 
         return self.place_address1 + " " + self.place_address2 + " " + self.place_name
 
+    class Meta:
+        verbose_name        = "観光地データ"
+        verbose_name_plural = "観光地データ"
+
 #手配データ
 class Reservation(models.Model):
 
     reservation_name = models.ForeignKey(Tourist,
                                     on_delete=models.CASCADE,
-                                    null = True, blank = True,
                                     verbose_name = "利用者名")
-    reservation_ymdt = models.DateTimeField(null = True, blank = True, verbose_name = "予約日時")
+    reservation_ymdt = models.DateTimeField(verbose_name = "予約日時")
     reservation_place = models.ForeignKey(Place,
                                     on_delete=models.CASCADE,
-                                    null = True, blank = True,
                                     verbose_name = "観光地")
     reservation_guide = models.ForeignKey(Guide,
                                     on_delete=models.CASCADE,
-                                    null = True, blank = True,
                                     verbose_name = "ガイド")
+
+    class Meta:
+        verbose_name        = "手配データ"
+        verbose_name_plural = "手配データ"
 
 #ガイド可能時間データ
 class Guidetime(models.Model):
 
     guide_name = models.ForeignKey(Guide,
                                     on_delete=models.CASCADE,
-                                    null = True, blank = True,
                                     verbose_name = "ガイド名")
-    guide_time1 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間1")
-    guide_time2 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間2")
-    guide_time3 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間3")
-    guide_time4 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間4")
-    guide_time5 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間5")
-    guide_time6 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間6")
-    guide_time7 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間7")
-    guide_time8 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間8")
-    guide_time9 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間9")
-    guide_time10 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間10")
+    guide_time_from1 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯開始時刻1")
+    guide_time_to1 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯終了時刻1")
+    guide_time_from2 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯開始時刻2")
+    guide_time_to2 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯終了時刻2")
+    guide_time_from3 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯開始時刻3")
+    guide_time_to3 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯終了時刻3")
+    guide_time_from4 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯開始時刻4")
+    guide_time_to4 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯終了時刻4")
+    guide_time_from5 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯開始時刻5")
+    guide_time_to5 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯終了時刻5")
+    guide_time_from6 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯開始時刻6")
+    guide_time_to6 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯終了時刻6")
+    guide_time_from7 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯開始時刻7")
+    guide_time_to7 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯終了時刻7")
+    guide_time_from8 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯開始時刻8")
+    guide_time_to8 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯終了時刻8")
+    guide_time_from9 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯開始時刻9")
+    guide_time_to9 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯終了時刻9")
+    guide_time_from10 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯開始時刻10")
+    guide_time_to10 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯終了時刻10")
+
+    class Meta:
+        verbose_name        = "ガイド可能時間データ"
+        verbose_name_plural = "ガイド可能時間データ"
 
 #ガイド可能場所データ
 class Guideplace(models.Model):
 
     guide_name = models.ForeignKey(Guide,
                                     on_delete=models.CASCADE,
-                                    null = True, blank = True,
                                     verbose_name = "ガイド名")
     guide_place1 = models.ForeignKey(Place,
                                     on_delete=models.CASCADE,
@@ -212,6 +231,10 @@ class Guideplace(models.Model):
                                     on_delete=models.CASCADE,
                                     null = True, blank = True, related_name = "guide_place10",
                                     verbose_name = "ガイド可能場所10")
+
+    class Meta:
+        verbose_name        = "ガイド可能場所データ"
+        verbose_name_plural = "ガイド可能場所データ"
 
 
 
