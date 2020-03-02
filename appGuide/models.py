@@ -94,6 +94,10 @@ class Guide(models.Model):
 
         return self.guide_sei + " " + self.guide_mei
 
+    class Meta:
+        verbose_name        = "ガイドデータ"
+        verbose_name_plural = "ガイドデータ"
+
 #プレ観光地データ
 class Preplace(models.Model):
 
