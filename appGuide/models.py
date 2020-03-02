@@ -12,6 +12,10 @@ class Gender(models.Model):
 
         return self.gender_name
 
+    class Meta:
+        verbose_name        = "性別"
+        verbose_name_plural = "性別"
+
 #利用者データ
 class Tourist(models.Model):
 
@@ -46,6 +50,10 @@ class Tourist(models.Model):
     def __str__(self):
 
         return self.user_sei + " " + self.user_mei
+
+    class Meta:
+        verbose_name        = "利用者データ"
+        verbose_name_plural = "利用者データ"
 
 #ガイドデータ
 class Guide(models.Model):
