@@ -62,3 +62,6 @@ User.objects.all().delete()
 User.objects.create_superuser('admin',
                               'golgo8128@yahoo.co.jp',
                               'admin')
+
+import appGuide.modules.initial_data1_1
+
