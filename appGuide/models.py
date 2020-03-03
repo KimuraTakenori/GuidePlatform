@@ -160,26 +160,8 @@ class Guidetime(models.Model):
     guide_name = models.ForeignKey(Guide,
                                     on_delete=models.CASCADE,
                                     verbose_name = "ガイド名")
-    guide_time_from1 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯開始時刻1")
-    guide_time_to1 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯終了時刻1")
-    guide_time_from2 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯開始時刻2")
-    guide_time_to2 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯終了時刻2")
-    guide_time_from3 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯開始時刻3")
-    guide_time_to3 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯終了時刻3")
-    guide_time_from4 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯開始時刻4")
-    guide_time_to4 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯終了時刻4")
-    guide_time_from5 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯開始時刻5")
-    guide_time_to5 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯終了時刻5")
-    guide_time_from6 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯開始時刻6")
-    guide_time_to6 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯終了時刻6")
-    guide_time_from7 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯開始時刻7")
-    guide_time_to7 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯終了時刻7")
-    guide_time_from8 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯開始時刻8")
-    guide_time_to8 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯終了時刻8")
-    guide_time_from9 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯開始時刻9")
-    guide_time_to9 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯終了時刻9")
-    guide_time_from10 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯開始時刻10")
-    guide_time_to10 = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯終了時刻10")
+    guide_time_from = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯開始時刻")
+    guide_time_to = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯終了時刻")
 
     class Meta:
         verbose_name        = "ガイド可能時間データ"
