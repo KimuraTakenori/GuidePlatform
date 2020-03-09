@@ -94,7 +94,7 @@ DATABASES = {
 
     "guide" : {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(GUIDEPLATFORM_DB_DIR, 'db_guide_afe.sqlite3'),
+        'NAME': os.path.join(GUIDEPLATFORM_DB_DIR, 'db_app_guide.sqlite3'),
     },
 
 }
