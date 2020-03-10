@@ -143,6 +143,8 @@ class Reservation(models.Model):
                                     on_delete=models.CASCADE,
                                     verbose_name = "利用者名")
     reservation_ymdt = models.DateTimeField(verbose_name = "予約日時")
+    reservation_time_from = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド開始時刻")
+    reservation_time_to = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド終了時刻")
     reservation_place = models.ForeignKey(Place,
                                     on_delete=models.CASCADE,
                                     verbose_name = "観光地")
@@ -173,46 +175,10 @@ class Guideplace(models.Model):
     guide_name = models.ForeignKey(Guide,
                                     on_delete=models.CASCADE,
                                     verbose_name = "ガイド名")
-    guide_place1 = models.ForeignKey(Place,
+    guide_place = models.ForeignKey(Place,
                                     on_delete=models.CASCADE,
-                                    null = True, blank = True, related_name = "guide_place1",
-                                    verbose_name = "ガイド可能場所1")
-    guide_place2 = models.ForeignKey(Place,
-                                    on_delete=models.CASCADE,
-                                    null = True, blank = True, related_name = "guide_place2",
-                                    verbose_name = "ガイド可能場所2")
-    guide_place3 = models.ForeignKey(Place,
-                                    on_delete=models.CASCADE,
-                                    null = True, blank = True, related_name = "guide_place3",
-                                    verbose_name = "ガイド可能場所3")
-    guide_place4 = models.ForeignKey(Place,
-                                    on_delete=models.CASCADE,
-                                    null = True, blank = True, related_name = "guide_place4",
-                                    verbose_name = "ガイド可能場所4")
-    guide_place5 = models.ForeignKey(Place,
-                                    on_delete=models.CASCADE,
-                                    null = True, blank = True, related_name = "guide_place5",
-                                    verbose_name = "ガイド可能場所5")
-    guide_place6 = models.ForeignKey(Place,
-                                    on_delete=models.CASCADE,
-                                    null = True, blank = True, related_name = "guide_place6",
-                                    verbose_name = "ガイド可能場所6")
-    guide_place7 = models.ForeignKey(Place,
-                                    on_delete=models.CASCADE,
-                                    null = True, blank = True, related_name = "guide_place7",
-                                    verbose_name = "ガイド可能場所7")
-    guide_place8 = models.ForeignKey(Place,
-                                    on_delete=models.CASCADE,
-                                    null = True, blank = True, related_name = "guide_place8",
-                                    verbose_name = "ガイド可能場所8")
-    guide_place9 = models.ForeignKey(Place,
-                                    on_delete=models.CASCADE,
-                                    null = True, blank = True, related_name = "guide_place19",
-                                    verbose_name = "ガイド可能場所9")
-    guide_place10 = models.ForeignKey(Place,
-                                    on_delete=models.CASCADE,
-                                    null = True, blank = True, related_name = "guide_place10",
-                                    verbose_name = "ガイド可能場所10")
+                                    null = True, blank = True, related_name = "guide_place",
+                                    verbose_name = "ガイド可能場所")
 
     class Meta:
         verbose_name        = "ガイド可能場所データ"
