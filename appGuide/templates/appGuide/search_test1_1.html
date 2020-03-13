@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Find appropriate guide</title>
+</head>
+<body>
+
+<H1>観光語り部プラットフォーム</H1>
+
+<H2>ガイド検索</H2>
+
+<form method="post">
+{% csrf_token %}
+
+{{ search_guide_form }}
+
+    <button type="submit" id="id_submit_button">ガイドを探す</button>
+     (テスト中につき、機能しません)
+
+</form>
+
+</body>
+</html>
