@@ -18,13 +18,22 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 ########## Guide Platform System ##########
 
-# IAB MetaD 1F System database folder
+# Guide Platform database folder
 
 GUIDEPLATFORM_DB_DIR  = os.path.join(BASE_DIR, "GuidePlatform_Databases")
 
-# IAB MetaD 1F System-specific. Variable name must be capital letters.
+# Guide Platform-specific. Variable name must be capital letters.
 
 GUIDEPLATFORM_WORKDIR = os.path.join(BASE_DIR, "GuidePlatform_Workspace")
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.0/howto/static-files/
+
+STATIC_URL = '/GuidePlatform_Static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "GuidePlatform_Static"),
+]
 
 ########## Guide Platform System (End) ##########
 
@@ -133,7 +142,4 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
