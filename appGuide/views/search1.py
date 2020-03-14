@@ -10,10 +10,11 @@ from django.db.models import Q
 from appGuide.models import *
 from appGuide.forms import SearchGuideForm
 
+from pprint import pprint
 
 class GuidableTimeListView(ListView):
     model = GuidableTime
-    template_name = "appGuide/guidetime_list1.html"
+    template_name = "appGuide/guidetime_list1_2.html"
 
     def get_context_data(self, **kwargs):
 
@@ -24,6 +25,10 @@ class GuidableTimeListView(ListView):
             search_form = SearchGuideForm()
         context[ "search_form" ] = search_form
 
+        # print(search_form.place_choices, type(search_form.place_choices), dir(search_form.place_choices))
+        # print(vars(search_form))
+        # print(vars(SearchGuideForm)) # .place_choices)
+
         return context
 
     def get_queryset(self):
@@ -32,18 +37,20 @@ class GuidableTimeListView(ListView):
 
         if "search_form" in vars(self) and self.search_form.is_valid():
             queryset = search_guidable_times(self.search_form.cleaned_data)
+            pprint(self.search_form.cleaned_data)
 
         return queryset
 
     def post(self, request, *args, **kwargs):
 
+        pprint(self.request.POST)
+        pprint(self.request.POST.getlist("place_choices"))
         self.search_form = SearchGuideForm(data = self.request.POST)
         return self.get(request, *args, **kwargs)
 
 
 def search_guidable_times(iform_input):
 
-    from pprint import pprint
     pprint(iform_input)
 
     queryset1 = GuidableTime.objects.filter(
