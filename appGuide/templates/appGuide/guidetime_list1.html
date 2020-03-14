@@ -15,14 +15,24 @@
 
 </form>
 
-    {% if object_list %}
-        <h3>条件に合うガイド</h3>
-        <dl>
-        {% for guideavail in object_list %}
-            <dt>{{ guideavail.guide }}</dt>
-            <dd>{{ guideavail.guidable_time_from }} - {{ guideavail.guidable_time_from }}</dd>
-        {% endfor %}
-        </dl>
+    {% if request.method == "POST" %}
+
+        <h3 class="mt-3">条件に合うガイド</h3>
+
+        {% if object_list %}
+
+            <dl>
+            {% for guideavail in object_list %}
+                <dt>{{ guideavail.guide }}</dt>
+                <dd>{{ guideavail.guidable_time_from }} - {{ guideavail.guidable_time_from }}</dd>
+            {% endfor %}
+            </dl>
+
+        {% else %}
+
+            条件に合うガイドが見つかりませんでした。
+
+        {%  endif %}
 
 
     {% endif %}
