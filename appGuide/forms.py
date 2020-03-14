@@ -26,7 +26,7 @@ class SearchGuideForm(forms.Form):
             label    = "希望日時終了")
 
     place_choices = forms.ModelMultipleChoiceField(
-        queryset = Place.objects.all(),
+        queryset = Spot.objects.all(),
         widget   = forms.CheckboxSelectMultiple(),
         label    = "希望観光場所",
         required = False)

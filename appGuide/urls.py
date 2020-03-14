@@ -1,7 +1,7 @@
 
 from django.urls import path
 
-from appGuide.views.search1 import GuideListView, search_guide
+from appGuide.views.search1 import GuideTimeListView, search_guide
 
 from appGuide.views.testviews import testview1, testview2, testview3
 
@@ -9,7 +9,7 @@ app_name = "appGuide"
 
 urlpatterns = [
     path("search_guide",
-         GuideListView.as_view(), name = "search_guide"),
+         GuideTimeListView.as_view(), name = "search_guide"),
 
     path("testview1",
          testview1, name="testview1"),

@@ -97,7 +97,7 @@ class Guide(models.Model):
         verbose_name_plural = "ガイドデータ"
 
 #プレ観光地データ
-class Preplace(models.Model):
+class PreTourSpot(models.Model):
 
     preplace_address1 = models.CharField(max_length = 10,
                                      verbose_name = "都道府県")
@@ -117,7 +117,7 @@ class Preplace(models.Model):
         verbose_name_plural = "プレ観光地データ"
 
 #観光地データ
-class Place(models.Model):
+class Spot(models.Model):
 
     place_address1 = models.CharField(max_length = 10,
                                      verbose_name = "都道府県")
@@ -139,46 +139,46 @@ class Place(models.Model):
 #手配データ
 class Reservation(models.Model):
 
-    reservation_name = models.ForeignKey(Tourist,
-                                    on_delete=models.CASCADE,
-                                    verbose_name = "利用者名")
+    tourist = models.ForeignKey(Tourist,
+                                on_delete    = models.CASCADE,
+                                verbose_name = "利用者名")
     reservation_ymdt = models.DateTimeField(verbose_name = "予約日時")
     reservation_time_from = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド開始時刻")
-    reservation_time_to = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド終了時刻")
-    reservation_place = models.ForeignKey(Place,
-                                    on_delete=models.CASCADE,
-                                    verbose_name = "観光地")
-    reservation_guide = models.ForeignKey(Guide,
-                                    on_delete=models.CASCADE,
-                                    verbose_name = "ガイド")
+    reservation_time_to   = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド終了時刻")
+    spot = models.ForeignKey(Spot,
+                             on_delete = models.CASCADE,
+                             verbose_name = "観光地")
+    guide = models.ForeignKey(Guide,
+                              on_delete = models.CASCADE,
+                              verbose_name = "ガイド")
 
     class Meta:
         verbose_name        = "手配データ"
         verbose_name_plural = "手配データ"
 
 #ガイド可能時間データ
-class Guidetime(models.Model):
+class GuidableTime(models.Model):
 
-    guide_name = models.ForeignKey(Guide,
-                                    on_delete=models.CASCADE,
-                                    verbose_name = "ガイド名")
-    guide_time_from = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯開始時刻")
-    guide_time_to = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯終了時刻")
+    guide = models.ForeignKey(Guide,
+                              on_delete = models.CASCADE,
+                              verbose_name = "ガイド名")
+    guidable_time_from = models.DateTimeField(null = True, blank = True, verbose_name ="ガイド可能時間帯開始時刻")
+    guidable_time_to   = models.DateTimeField(null = True, blank = True, verbose_name ="ガイド可能時間帯終了時刻")
 
     class Meta:
         verbose_name        = "ガイド可能時間データ"
         verbose_name_plural = "ガイド可能時間データ"
 
 #ガイド可能場所データ
-class Guideplace(models.Model):
+class GuidableSpot(models.Model):
 
-    guide_name = models.ForeignKey(Guide,
-                                    on_delete=models.CASCADE,
-                                    verbose_name = "ガイド名")
-    guide_place = models.ForeignKey(Place,
-                                    on_delete=models.CASCADE,
-                                    null = True, blank = True, related_name = "guide_place",
-                                    verbose_name = "ガイド可能場所")
+    guide = models.ForeignKey(Guide,
+                              on_delete=models.CASCADE,
+                              verbose_name = "ガイド名")
+    spot  = models.ForeignKey(Spot,
+                              on_delete=models.CASCADE,
+                              null = True, blank = True,
+                              verbose_name = "ガイド可能場所")
 
     class Meta:
         verbose_name        = "ガイド可能場所データ"

@@ -10,6 +10,38 @@ from appGuide.models import *
 from appGuide.forms import SearchGuideForm
 
 
+class GuideTimeListView(ListView):
+    model = GuidableTime
+    template_name = "appGuide/guidetime_list1.html"
+
+    def get_context_data(self, **kwargs):
+
+        context = super().get_context_data(**kwargs)
+        if "search_form" in vars(self):
+            search_form = self.search_form
+        else:
+            search_form = SearchGuideForm()
+        context[ "search_form" ] = search_form
+
+        return context
+
+    def get_queryset(self):
+
+        queryset = self.model.objects.none()
+
+        if "search_form" in vars(self) and self.search_form.is_valid():
+            queryset = self.model.objects.all()
+
+        return queryset
+
+    def post(self, request, *args, **kwargs):
+
+        self.search_form = SearchGuideForm(data = self.request.POST)
+        return self.get(request, *args, **kwargs)
+
+
+
+
 class GuideListView(ListView):
     model = Guide
     template_name = "appGuide/guide_list1.html"
@@ -31,7 +63,6 @@ class GuideListView(ListView):
 
         if "search_form" in vars(self) and self.search_form.is_valid():
             queryset = self.model.objects.all()
-            print("Valid post!")
 
         return queryset
 
