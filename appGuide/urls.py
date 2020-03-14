@@ -1,16 +1,21 @@
 
 from django.urls import path
 
-from .views import search_guide, testview1, testview2
+from appGuide.views.search1 import GuideListView, search_guide
+
+from appGuide.views.testviews import testview1, testview2, testview3
 
 app_name = "appGuide"
 
 urlpatterns = [
     path("search_guide",
-         search_guide, name = "search_guide"),
+         GuideListView.as_view(), name = "search_guide"),
+
     path("testview1",
          testview1, name="testview1"),
     path("testview2",
          testview2, name="testview2"),
+    path("testview3",
+         testview3, name="testview3"),
 
     ]

@@ -1,0 +1,29 @@
+{% extends 'appGuide/Guide_base1_2.html' %}
+{% load static %}
+
+{% block main_body %}
+
+<H2>ガイド検索</H2>
+
+<form method="post">
+{% csrf_token %}
+
+    {{ search_form }}
+
+        <button type="submit" id="id_submit_button">ガイドを探す</button>
+         (テスト中につき、機能しません)
+
+</form>
+
+    {% if object_list %}
+        <h3>条件に合うガイド</h3>
+        <ul>
+        {% for guide in object_list %}
+            <li>{{ guide }}</li>
+        {% endfor %}
+        </ul>
+
+
+    {% endif %}
+
+{% endblock %}
