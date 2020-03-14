@@ -5,12 +5,13 @@ from django.shortcuts import render
 
 from django.http import HttpResponse
 from django.views.generic import ListView
+from django.db.models import Q
 
 from appGuide.models import *
 from appGuide.forms import SearchGuideForm
 
 
-class GuideTimeListView(ListView):
+class GuidableTimeListView(ListView):
     model = GuidableTime
     template_name = "appGuide/guidetime_list1.html"
 
@@ -30,7 +31,7 @@ class GuideTimeListView(ListView):
         queryset = self.model.objects.none()
 
         if "search_form" in vars(self) and self.search_form.is_valid():
-            queryset = self.model.objects.all()
+            queryset = search_guidable_times(self.search_form.cleaned_data)
 
         return queryset
 
@@ -40,6 +41,20 @@ class GuideTimeListView(ListView):
         return self.get(request, *args, **kwargs)
 
 
+def search_guidable_times(iform_input):
+
+    from pprint import pprint
+    pprint(iform_input)
+
+    queryset1 = GuidableTime.objects.filter(
+        Q(guidable_time_from__gte = iform_input[ "req_time_from" ],
+          guidable_time_from__lt  = iform_input[ "req_time_to"],
+          guide__guidablespot__spot__in = iform_input[ "place_choices" ],) |
+        Q(guidable_time_to__gte   = iform_input[ "req_time_from" ],
+          guidable_time_to__lt    = iform_input[ "req_time_to" ],
+          guide__guidablespot__spot__in = iform_input[ "place_choices" ])).distinct()
+
+    return queryset1
 
 
 class GuideListView(ListView):
