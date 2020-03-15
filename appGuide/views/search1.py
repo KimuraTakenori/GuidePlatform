@@ -37,14 +37,14 @@ class GuidableTimeListView(ListView):
 
         if "search_form" in vars(self) and self.search_form.is_valid():
             queryset = search_guidable_times(self.search_form.cleaned_data)
-            pprint(self.search_form.cleaned_data)
+            # pprint(self.search_form.cleaned_data)
 
         return queryset
 
     def post(self, request, *args, **kwargs):
 
-        pprint(self.request.POST)
-        pprint(self.request.POST.getlist("place_choices"))
+        # pprint(self.request.POST)
+        # pprint(self.request.POST.getlist("place_choices"))
         self.search_form = SearchGuideForm(data = self.request.POST)
         return self.get(request, *args, **kwargs)
 

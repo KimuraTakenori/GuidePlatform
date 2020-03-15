@@ -30,21 +30,28 @@
         {{ search_form.req_time_to }}
     </p>
 
-    {% comment %}
-    <ul id="id_place_choices">
 
+    {# {{ search_form.place_choices.value }} #}
 
+    <div class="row">
     {% for num, choice_str in search_form.place_choices.field.choices %}
 
-        <label for="id_place_choices_{{ forloop.counter0 }}">
-            <input type="checkbox" name="place_choices" value="{{ num }}" id="id_place_choices_{{ forloop.counter0 }}">
-            {{ choice_str }}
-        </label>
+        <div class="col-md-4">
+            <label for="id_place_choices_{{ forloop.counter0 }}">
+                {#  {{ num|stringformat:"d" }} {{ search_form.place_choices.value  }} #}
+                {% if num|stringformat:"d" in search_form.place_choices.value  %}
+                    <input type="checkbox" name="place_choices" value="{{ num }}" id="id_place_choices_{{ forloop.counter0 }}" checked>
+                {% else %}
+                    <input type="checkbox" name="place_choices" value="{{ num }}" id="id_place_choices_{{ forloop.counter0 }}">
+                {% endif %}
+                {{ choice_str }}
+            </label>
+        </div>
 
     {% endfor %}
+    </div>
 
-    </ul>
-
+    {% comment %}
     <label for="id_place_choices_XXX">
         <input type="checkbox" name="place_choices_XXX" value="XXX" id="id_place_choices_XXX">
         XXX
@@ -56,7 +63,28 @@
 
     {% endcomment %}
 
-    {{ search_form.place_choices }}
+    {# {{ search_form.place_choices }} #}
+
+    {% comment %}
+<ul id="id_place_choices">
+    <li>
+        <label for="id_place_choices_0"><input type="checkbox" name="place_choices" value="1" id="id_place_choices_0">
+            山形県 鶴岡市 庄内藩校致道館
+        </label>
+    </li>
+    <li>
+        <label for="id_place_choices_1"><input type="checkbox" name="place_choices" value="2" id="id_place_choices_1" checked>
+        山形県 鶴岡市 致道博物館
+        </label>
+    </li>
+    <li>
+        <label for="id_place_choices_2"><input type="checkbox" name="place_choices" value="3" id="id_place_choices_2">
+        山形県 鶴岡市 致道館
+        </label>
+    </li>
+</ul>
+
+    {% endcomment %}
 
     <button type="submit" id="id_submit_button">ガイドを探す</button>
 
