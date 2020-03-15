@@ -14,7 +14,7 @@ from pprint import pprint
 
 class GuidableTimeListView(ListView):
     model = GuidableTime
-    template_name = "appGuide/guidetime_list1_2.html"
+    template_name = "appGuide/guidetime_list1_3.html"
 
     def get_context_data(self, **kwargs):
 
