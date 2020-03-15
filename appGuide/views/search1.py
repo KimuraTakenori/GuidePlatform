@@ -38,6 +38,9 @@ class GuidableTimeListView(ListView):
         if "search_form" in vars(self) and self.search_form.is_valid():
             queryset = search_guidable_times(self.search_form.cleaned_data)
             # pprint(self.search_form.cleaned_data)
+        # else:
+            # print("Invalid!")
+            # print("search_form" in vars(self))
 
         return queryset
 
@@ -51,7 +54,7 @@ class GuidableTimeListView(ListView):
 
 def search_guidable_times(iform_input):
 
-    pprint(iform_input)
+    # pprint(iform_input)
 
     queryset1 = GuidableTime.objects.filter(
         Q(guidable_time_from__gte = iform_input[ "req_time_from" ],

@@ -11,6 +11,17 @@
             $('#{{ search_form.req_time_to.auto_id }}').datetimepicker({ format : 'Y-m-d H:i',
                                                                          step   : 30 });
         });
+
+        function turnonalltspots(){
+
+            var spots = document.querySelectorAll('input[id^="id_place_choices_"]');
+            console.log(spots);
+            for(var i = 0;i < spots.length; i++){
+                console.log(spots[i]);
+                spots[i].checked = true;
+            }
+        }
+
     </script>
 
 {% endblock %}
@@ -32,18 +43,21 @@
         {{ search_form.req_time_to }}
     </p>
 
+    <button type="button" class="btn btn-secondary" onclick="turnonalltspots()">全ての観光地を対象とする</button>
+
+    {{ search_form.place_choices.errors }}
     <div class="row">
     {% for choice_spot in search_form.place_choices.field.choices.queryset %}
 
         <div class="col-md-4">
             <label for="id_place_choices_{{ forloop.counter0 }}">
-                {# {{ forloop.counter|stringformat:"d" }} {{ search_form.place_choices.value }} #}
-                {% if forloop.counter|stringformat:"d" in search_form.place_choices.value  %}
-                    <input type="checkbox" name="place_choices" value="{{ forloop.counter }}" id="id_place_choices_{{ forloop.counter0 }}" checked>
+                {# {{ choice_spot.pk|stringformat:"d" }} {{ search_form.place_choices.value }} #}
+                {% if choice_spot.pk|stringformat:"d" in search_form.place_choices.value  %}
+                    <input type="checkbox" name="place_choices" value="{{ choice_spot.pk }}" id="id_place_choices_{{ forloop.counter0 }}" checked>
                 {% else %}
-                    <input type="checkbox" name="place_choices" value="{{ forloop.counter }}" id="id_place_choices_{{ forloop.counter0 }}">
+                    <input type="checkbox" name="place_choices" value="{{ choice_spot.pk }}" id="id_place_choices_{{ forloop.counter0 }}">
                 {% endif %}
-                {{ choice_spot }} {#  Check choice_spot.pk #}
+                {{ choice_spot }} {# {{ choice_spot.pk }} #} {#  Check choice_spot.pk #}
             </label>
         </div>
 
@@ -64,6 +78,7 @@
             <dl>
             {% for guideavail in object_list %}
                 <dt>{{ guideavail.guide }}</dt>
+                <dd>{{ guideavail.guide.get_guidable_spots_str }}</dd>
                 <dd>{{ guideavail.guidable_time_from }} - {{ guideavail.guidable_time_from }}</dd>
             {% endfor %}
             </dl>

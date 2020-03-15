@@ -88,6 +88,15 @@ class Guide(models.Model):
     guide_pr = models.CharField(max_length = 1000, null = True, blank = True,
                                 verbose_name = "PR欄")
 
+    def get_guidable_spots(self):
+
+        return Spot.objects.filter(guidablespot__guide = self)
+
+    def get_guidable_spots_str(self):
+
+        return ", ".join([ str(tmpspot) for tmpspot in self.get_guidable_spots() ])
+
+
     def __str__(self):
 
         return self.guide_sei + " " + self.guide_mei
