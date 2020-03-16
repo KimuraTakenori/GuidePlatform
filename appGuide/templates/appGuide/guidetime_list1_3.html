@@ -28,12 +28,12 @@
 
 {% block main_body %}
 
-<H2>ガイド検索</H2>
+<H2 class="mt-2 p-2">ガイド検索</H2>
 
 <form method="post">
 {% csrf_token %}
 
-    <p>
+    <p class="p-2">
         {{ search_form.req_time_from.errors }}
         <label for="{{ search_form.req_time_from.id_for_label }}">{{ search_form.req_time_from.label }}</label>
         {{ search_form.req_time_from }}
@@ -43,10 +43,8 @@
         {{ search_form.req_time_to }}
     </p>
 
-    <button type="button" class="btn btn-secondary" onclick="turnonalltspots()">全ての観光地を対象とする</button>
-
     {{ search_form.place_choices.errors }}
-    <div class="row">
+    <div class="row p-2">
     {% for choice_spot in search_form.place_choices.field.choices.queryset %}
 
         <div class="col-md-4">
@@ -64,7 +62,9 @@
     {% endfor %}
     </div>
 
-    <button type="submit" id="id_submit_button">ガイドを探す</button>
+    <button type="button" class="btn btn-secondary" onclick="turnonalltspots()">全ての観光地を対象とする</button>
+
+    <button type="submit" class="btn btn-primary" id="id_submit_button">ガイドを探す</button>
 
 
 </form>

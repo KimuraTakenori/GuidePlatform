@@ -70,3 +70,10 @@ GuidableTime.objects.create(guide = Guide.objects.get(guide_sei = "真田",
                                                       guide_mei = "幸村"),
                             guidable_time_from = "2020-03-17 10:00",
                             guidable_time_to   = "2020-03-17 16:00")
+
+
+GuidableSpot.objects.create(guide = Guide.objects.get(guide_sei = "真田",
+                                                      guide_mei = "幸村"),
+                            spot  = Spot.objects.get(place_name = "致道博物館"))
+
+
