@@ -3,7 +3,7 @@ import datetime
 from django.utils import timezone
 
 from django import forms
-from .models import *
+from appGuide.models import *
 
 class SearchGuideForm(forms.Form):
 

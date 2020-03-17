@@ -1,12 +1,7 @@
-from django.shortcuts import render
-
 # Create your views here.
 
-from django.http import HttpResponse
 from django.shortcuts import render
 
-from appGuide.models import *
-from appGuide.forms import SearchGuideForm
 
 def testview1(request):
 

@@ -79,7 +79,7 @@
             {% for guideavail in object_list %}
                 <dt>{{ guideavail.guide }}</dt>
                 <dd>{{ guideavail.guide.get_guidable_spots_str }}</dd>
-                <dd>{{ guideavail.guidable_time_from }} - {{ guideavail.guidable_time_from }}</dd>
+                <dd>{{ guideavail.guidable_time_from }} - {{ guideavail.guidable_time_to }}</dd>
             {% endfor %}
             </dl>
 
