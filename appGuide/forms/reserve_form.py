@@ -7,6 +7,11 @@ from appGuide.models import *
 
 
 class TouristReservationForm(forms.ModelForm):
+
+    spot = forms.ModelChoiceField(
+        queryset = Spot.objects.all(),
+        label    = "希望観光地")
+
     class Meta:
         model = Tourist
         fields = (

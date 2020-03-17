@@ -1,5 +1,7 @@
 from django.db import models
 
+from django.utils.timezone import localtime
+
 # Create your models here.
 
 #性別名データ
@@ -145,25 +147,6 @@ class Spot(models.Model):
         verbose_name        = "観光地データ"
         verbose_name_plural = "観光地データ"
 
-#手配データ
-class Reservation(models.Model):
-
-    tourist = models.ForeignKey(Tourist,
-                                on_delete    = models.CASCADE,
-                                verbose_name = "利用者名")
-    reservation_ymdt = models.DateTimeField(verbose_name = "予約日時")
-    reservation_time_from = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド開始時刻")
-    reservation_time_to   = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド終了時刻")
-    spot = models.ForeignKey(Spot,
-                             on_delete = models.CASCADE,
-                             verbose_name = "観光地")
-    guide = models.ForeignKey(Guide,
-                              on_delete = models.CASCADE,
-                              verbose_name = "ガイド")
-
-    class Meta:
-        verbose_name        = "手配データ"
-        verbose_name_plural = "手配データ"
 
 #ガイド可能時間データ
 class GuidableTime(models.Model):
@@ -171,12 +154,20 @@ class GuidableTime(models.Model):
     guide = models.ForeignKey(Guide,
                               on_delete = models.CASCADE,
                               verbose_name = "ガイド名")
-    guidable_time_from = models.DateTimeField(null = True, blank = True, verbose_name ="ガイド可能時間帯開始時刻")
-    guidable_time_to   = models.DateTimeField(null = True, blank = True, verbose_name ="ガイド可能時間帯終了時刻")
+    guidable_time_from = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯開始時刻")
+    guidable_time_to   = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド可能時間帯終了時刻")
+
+
+    def __str__(self):
+
+        return "{guide}: {tfrom} - {tto}".format(
+            guide = self.guide,
+            tfrom = localtime(self.guidable_time_from).strftime("%Y/%m/%d %H:%M:%S"),
+            tto   = localtime(self.guidable_time_to).strftime("%Y/%m/%d %H:%M:%S"))
 
     class Meta:
-        verbose_name        = "ガイド可能時間データ"
-        verbose_name_plural = "ガイド可能時間データ"
+        verbose_name        = "ガイド可能時間帯"
+        verbose_name_plural = "ガイド可能時間帯"
 
 #ガイド可能場所データ
 class GuidableSpot(models.Model):
@@ -194,6 +185,25 @@ class GuidableSpot(models.Model):
         verbose_name_plural = "ガイド可能場所データ"
 
 
+#手配データ
+class Reservation(models.Model):
+
+    tourist = models.ForeignKey(Tourist,
+                                on_delete    = models.CASCADE,
+                                verbose_name = "利用者名")
+    reservation_ymdt = models.DateTimeField(verbose_name = "予約日時")
+    reservation_time_from = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド開始時刻")
+    reservation_time_to   = models.DateTimeField(null = True, blank = True, verbose_name = "ガイド終了時刻")
+    spot = models.ForeignKey(Spot,
+                             on_delete = models.CASCADE,
+                             verbose_name = "観光地")
+    guidable_time = models.ForeignKey(GuidableTime,
+                                      on_delete = models.CASCADE,
+                                      verbose_name = "ガイド可能時間帯")
+
+    class Meta:
+        verbose_name        = "手配データ"
+        verbose_name_plural = "手配データ"
 
 
 
