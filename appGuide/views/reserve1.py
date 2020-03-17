@@ -1,5 +1,7 @@
 
 from django.utils import timezone
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.views.generic import TemplateView
 
 from ..models import *
@@ -27,10 +29,13 @@ class ReserveGuideTimeView(TemplateView):
 
 
     def post(self, request, *args, **kwargs):
+        # CHECK DOUBLE BOOKINGS!!!
 
         self.reserve_form = TouristReservationForm(data = self.request.POST)
 
         if self.reserve_form.is_valid():
+            print("Valid!!!")
+
             tourist       = self.reserve_form.save()
             guidable_time = GuidableTime.objects.get(pk=self.kwargs["pk"])
             spot          = self.reserve_form.cleaned_data[ "spot" ]
@@ -44,4 +49,7 @@ class ReserveGuideTimeView(TemplateView):
                 guidable_time         = guidable_time,
             )
 
-        return self.get(request, *args, **kwargs)
+            return HttpResponseRedirect(reverse("appGuide:search_guide"))
+
+        else:
+            return self.get(request, *args, **kwargs)

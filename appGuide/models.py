@@ -35,8 +35,8 @@ class Tourist(models.Model):
     user_seinen = models.DateField(verbose_name = "生年月日")
     user_tel = models.SlugField(max_length = 13,
                                 verbose_name = "電話番号")
-    user_mail = models.EmailField(max_length = 50,
-                                  verbose_name = "メールアドレス")
+    user_email = models.EmailField(max_length = 50,
+                                   verbose_name = "メールアドレス")
     user_pass = models.SlugField(max_length = 20,
                                  verbose_name = "パスワード")
     user_post = models.SlugField(max_length = 8,
@@ -73,8 +73,8 @@ class Guide(models.Model):
     guide_seinen = models.DateField(verbose_name = "生年月日")
     guide_tel = models.SlugField(max_length = 13,
                                 verbose_name = "電話番号")
-    guide_mail = models.EmailField(max_length = 50,
-                                  verbose_name = "メールアドレス")
+    guide_email = models.EmailField(max_length = 50,
+                                    verbose_name = "メールアドレス")
     guide_pass = models.SlugField(max_length = 20,
                                  verbose_name = "パスワード")
     guide_post = models.SlugField(max_length = 8,
@@ -206,6 +206,13 @@ class Reservation(models.Model):
         verbose_name_plural = "手配データ"
 
 
+    def __str__(self):
+
+        return "{guide}: {tfrom} - {tto} @ {tourist}".format(
+            guide = self.guidable_time.guide,
+            tfrom = localtime(self.reservation_time_from).strftime("%Y/%m/%d %H:%M:%S"),
+            tto   = localtime(self.reservation_time_to).strftime("%Y/%m/%d %H:%M:%S"),
+            tourist = self.tourist)
 
 
 

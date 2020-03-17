@@ -80,8 +80,11 @@
                 <dt>{{ guideavail.guide }}</dt>
                 <dd>{{ guideavail.guide.get_guidable_spots_str }}</dd>
                 <dd>{{ guideavail.guidable_time_from }} - {{ guideavail.guidable_time_to }}</dd>
+                <a href="{% url 'appGuide:reserve_guide' guideavail.pk %}">このガイド・時間帯の予約へ</a>
             {% endfor %}
             </dl>
+
+            <p>※注意: 現在旅行者・ガイド共にダブルブッキング回避処理を行っていません。</p>
 
         {% else %}
 

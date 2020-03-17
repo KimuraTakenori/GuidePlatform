@@ -22,10 +22,16 @@ class TouristReservationForm(forms.ModelForm):
             "user_gender",
             "user_seinen",
             "user_tel",
-            "user_mail",
+            "user_email",
             "user_pass",
             "user_post",
             "user_address1",
             "user_address2",
             "user_address3",
         )
+
+    def __init__(self, *args, **kwargs):
+
+        super().__init__(*args, **kwargs)
+
+        self.fields[ 'user_pass' ].widget = forms.PasswordInput()

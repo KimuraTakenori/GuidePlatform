@@ -30,6 +30,7 @@ class GuidableTimeListView(ListView):
         return context
 
     def get_queryset(self):
+        """ CHECK FOR ALREADY RESERVED TIMEFRAMES!!! """
 
         queryset = self.model.objects.none()
 
