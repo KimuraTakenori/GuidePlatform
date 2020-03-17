@@ -1,4 +1,9 @@
 
+# The following may be used for extracting portion of available time frames:
+# pip install portion
+# https://github.com/AlexandreDecan/portion
+
+
 from django.shortcuts import render
 
 # Create your views here.

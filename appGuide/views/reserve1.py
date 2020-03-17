@@ -1,4 +1,8 @@
 
+# The following may be used for extracting portion of available time frames:
+# pip install portion
+# https://github.com/AlexandreDecan/portion
+
 from django.utils import timezone
 from django.http import HttpResponseRedirect
 from django.urls import reverse
