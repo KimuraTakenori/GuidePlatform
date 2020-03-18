@@ -16,6 +16,7 @@ import portion as Interval
 from appGuide.models import *
 from appGuide.forms.search_form import SearchGuideForm
 
+from pprint import pprint
 
 class GuidableTimeListView(ListView):
     model = GuidableTime
@@ -43,6 +44,13 @@ class GuidableTimeListView(ListView):
 
         if "search_form" in vars(self) and self.search_form.is_valid():
             queryset = search_guidable_times(self.search_form.cleaned_data)
+            self.request.session[ "Request time" ] = {
+                "from" : self.search_form.cleaned_data[ "req_time_from" ].strftime("%Y/%m/%d %H:%M"),
+                "to"   : self.search_form.cleaned_data[ "req_time_to"   ].strftime("%Y/%m/%d %H:%M"),
+            }
+            self.request.session.modified = True
+            pprint(self.request.session[ "Request time" ])
+
             # pprint(self.search_form.cleaned_data)
         # else:
             # print("Invalid!")
