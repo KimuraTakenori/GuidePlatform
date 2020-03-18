@@ -1,5 +1,6 @@
 
 from appGuide.models import *
+from appGuide.modules.datetime_with_timezone1 import datetime_str_localize
 
 Gender.objects.create(gender_name = "男性")
 Gender.objects.create(gender_name = "女性")
@@ -68,9 +69,8 @@ Spot.objects.create(place_address1 ="山形県",
 
 GuidableTime.objects.create(guide = Guide.objects.get(guide_sei = "真田",
                                                       guide_mei = "幸村"),
-                            guidable_time_from = "2020-03-17 10:00",
-                            guidable_time_to   = "2020-03-17 16:00")
-
+                            guidable_time_from = datetime_str_localize("2020-03-17 10:00"),
+                            guidable_time_to   = datetime_str_localize("2020-03-17 16:00"))
 
 GuidableSpot.objects.create(guide = Guide.objects.get(guide_sei = "真田",
                                                       guide_mei = "幸村"),

@@ -13,6 +13,8 @@ urlpatterns = [
          GuidableTimeListView.as_view(), name ="search_guide"),
     path("reserve_guide/<int:pk>",
          ReserveGuideTimeView.as_view(), name = "reserve_guide"),
+    path("reserve_guide/<int:pk>/<str:cand_time_interval>", # ex. 202002031000_202002031130
+         ReserveGuideTimeView.as_view(), name="reserve_guide"),
 
 
     path("testview1",

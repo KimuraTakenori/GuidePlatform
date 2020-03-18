@@ -52,13 +52,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'appGuide.apps.AppguideConfig',
+    'appGuide.apps.AppguideConfig', # Takenori's Guide Platform System
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "django_extensions",  # pip install django-extensions
 ]
 
 MIDDLEWARE = [
