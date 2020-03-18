@@ -38,7 +38,6 @@ class ReserveGuideTimeView(TemplateView):
         self.reserve_form = TouristReservationForm(data = self.request.POST)
 
         if self.reserve_form.is_valid():
-            print("Valid!!!")
 
             tourist       = self.reserve_form.save()
             guidable_time = GuidableTime.objects.get(pk=self.kwargs["pk"])
@@ -57,3 +56,8 @@ class ReserveGuideTimeView(TemplateView):
 
         else:
             return self.get(request, *args, **kwargs)
+
+def search_guidable_time_interval(guidable_time, request_time):
+
+    pass
+
