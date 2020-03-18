@@ -11,8 +11,6 @@ from django.shortcuts import render
 from django.views.generic import ListView
 from django.db.models import Q
 
-import portion as Interval
-
 from appGuide.models import *
 from appGuide.forms.search_form import SearchGuideForm
 

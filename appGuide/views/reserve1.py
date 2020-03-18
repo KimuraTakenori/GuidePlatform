@@ -57,7 +57,4 @@ class ReserveGuideTimeView(TemplateView):
         else:
             return self.get(request, *args, **kwargs)
 
-def search_guidable_time_interval(guidable_time, request_time):
-
-    pass
 
