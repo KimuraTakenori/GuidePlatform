@@ -33,7 +33,7 @@
 <form method="post">
 {% csrf_token %}
 
-    <p class="p-2">
+    <p>
         {{ search_form.req_time_from.errors }}
         <label for="{{ search_form.req_time_from.id_for_label }}">{{ search_form.req_time_from.label }}</label>
         {{ search_form.req_time_from }}
@@ -43,23 +43,25 @@
         {{ search_form.req_time_to }}
     </p>
 
+    <div class="container">
     {{ search_form.place_choices.errors }}
-    <div class="row p-2">
-    {% for choice_spot in search_form.place_choices.field.choices.queryset %}
+        <div class="row">
+        {% for choice_spot in search_form.place_choices.field.choices.queryset %}
 
-        <div class="col-md-4">
-            <label for="id_place_choices_{{ forloop.counter0 }}">
-                {# {{ choice_spot.pk|stringformat:"d" }} {{ search_form.place_choices.value }} #}
-                {% if choice_spot.pk|stringformat:"d" in search_form.place_choices.value  %}
-                    <input type="checkbox" name="place_choices" value="{{ choice_spot.pk }}" id="id_place_choices_{{ forloop.counter0 }}" checked>
-                {% else %}
-                    <input type="checkbox" name="place_choices" value="{{ choice_spot.pk }}" id="id_place_choices_{{ forloop.counter0 }}">
-                {% endif %}
-                {{ choice_spot }} {# {{ choice_spot.pk }} #} {#  Check choice_spot.pk #}
-            </label>
+            <div class="col-md-4">
+                <label for="id_place_choices_{{ forloop.counter0 }}">
+                    {# {{ choice_spot.pk|stringformat:"d" }} {{ search_form.place_choices.value }} #}
+                    {% if choice_spot.pk|stringformat:"d" in search_form.place_choices.value  %}
+                        <input type="checkbox" name="place_choices" value="{{ choice_spot.pk }}" id="id_place_choices_{{ forloop.counter0 }}" checked>
+                    {% else %}
+                        <input type="checkbox" name="place_choices" value="{{ choice_spot.pk }}" id="id_place_choices_{{ forloop.counter0 }}">
+                    {% endif %}
+                    {{ choice_spot }} {# {{ choice_spot.pk }} #} {#  Check choice_spot.pk #}
+                </label>
+            </div>
+
+        {% endfor %}
         </div>
-
-    {% endfor %}
     </div>
 
     <button type="button" class="btn btn-secondary" onclick="turnonalltspots()">全ての観光地を対象とする</button>
