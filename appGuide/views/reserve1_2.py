@@ -13,7 +13,8 @@ from django.views.generic import TemplateView
 from ..models import *
 from ..forms.reserve_form import TouristReservationForm
 
-from appGuide.modules.datetime_with_timezone1 import datetime_str_localize
+from ..modules.datetime_with_timezone1 import datetime_str_localize
+from ..modules.search_guidable_time_intervals1_1 import check_avail_full_interval
 
 from pprint import pprint
 
@@ -41,11 +42,18 @@ class ReserveGuideTimeView(TemplateView):
         context[ "req_time_to"   ] = req_time_to
         context[ "reserve_form" ]  = self.reserve_form
 
+        if "no_longer_available" in vars(self):
+            if self.no_longer_available:
+                context[ "No_longer_avail" ] = True
+            else:
+                context[ "No_longer_avail" ] = False
+        else:
+            context[ "No_longer_avail" ] = None
+
         return context
 
 
     def post(self, request, *args, **kwargs):
-        # CHECK DOUBLE BOOKINGS!!!
 
         guidable_time = GuidableTime.objects.get(pk=self.kwargs[ "pk" ])
         cdtimintvlstr = self.kwargs[ "cand_time_interval" ]
@@ -65,18 +73,21 @@ class ReserveGuideTimeView(TemplateView):
             # Check once more to confirm that the time interval is
             # still available, - not occupied by other tourist.
 
-            Reservation.objects.create(
-                tourist               = tourist,
-                reservation_ymdt      = timezone.localtime(),
-                reservation_time_from = req_time_from,
-                reservation_time_to   = req_time_to,
-                spot                  = spot,
-                guidable_time         = guidable_time,
-            )
+            if check_avail_full_interval(guidable_time,
+                                         req_time_from, req_time_to):
+                Reservation.objects.create(
+                    tourist               = tourist,
+                    reservation_ymdt      = timezone.localtime(),
+                    reservation_time_from = req_time_from,
+                    reservation_time_to   = req_time_to,
+                    spot                  = spot,
+                    guidable_time         = guidable_time,
+                )
+                return HttpResponseRedirect(reverse("appGuide:search_guide"))
 
-            return HttpResponseRedirect(reverse("appGuide:search_guide"))
+            else:
+                self.no_longer_available = True
 
-        else:
-            return self.get(request, *args, **kwargs)
+        return self.get(request, *args, **kwargs)
 
 

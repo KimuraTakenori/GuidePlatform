@@ -51,11 +51,11 @@ class GuidableTimeIntervalView(TemplateView):
             guidable_times = search_guidable_times(self.search_form.cleaned_data)
             req_time_from  = self.search_form.cleaned_data[ "req_time_from" ]
             req_time_to    = self.search_form.cleaned_data[ "req_time_to"   ]
-            self.request.session[ "Request time" ] = {
-                "from" : req_time_from.strftime("%Y/%m/%d %H:%M"),
-                "to"   : req_time_to.strftime("%Y/%m/%d %H:%M"),
-            }
-            self.request.session.modified = True
+            # self.request.session[ "Request time" ] = {
+            #     "from" : req_time_from.strftime("%Y/%m/%d %H:%M"),
+            #     "to"   : req_time_to.strftime("%Y/%m/%d %H:%M"),
+            # }
+            # self.request.session.modified = True
 
             self.cand_time_intvals = []
             for guidable_time in guidable_times:

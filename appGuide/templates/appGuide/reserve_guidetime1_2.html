@@ -1,6 +1,19 @@
 {% extends 'appGuide/Guide_base1_2.html' %}
 {% load static %}
 
+{% block header_script %}
+
+    <script>
+        $(function(){
+            $.datetimepicker.setLocale('ja');
+            $('#{{ reserve_form.user_seinen.auto_id }}').datetimepicker({ format : 'Y-m-d',
+                                                                          timepicker : false });
+        });
+
+    </script>
+
+{% endblock %}
+
 
 {% block main_body %}
 
@@ -13,6 +26,10 @@
         <dt>ガイド予約時間</dt>
         <dd>{{ req_time_from }} - {{ req_time_to }}</dd>
     </dl>
+
+    {% if No_longer_avail %}
+        <p class="text-warning">この時間帯は既に埋まってしまいました。</p>
+    {% endif %}
 
     <form method="post">
         {% csrf_token %}
@@ -94,7 +111,7 @@
 
     </form>
 
-    <p>※注意: 現在旅行者・ガイド共にダブルブッキング回避処理を行っていません。</p>
+    <p>※注意: 旅行者自身にダブルブッキングが起こらないよう、ご注意下さい。</p>
 
 {% endblock %}
 
