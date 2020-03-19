@@ -180,6 +180,12 @@ class GuidableSpot(models.Model):
                               null = True, blank = True,
                               verbose_name = "ガイド可能場所")
 
+    def __str__(self):
+
+        return "{guide}: {spot}".format(
+            guide = self.guide,
+            spot  = self.spot)
+
     class Meta:
         verbose_name        = "ガイド可能場所データ"
         verbose_name_plural = "ガイド可能場所データ"

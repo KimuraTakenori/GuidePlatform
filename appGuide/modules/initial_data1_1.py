@@ -32,6 +32,33 @@ Guide.objects.create(guide_sei = "真田",
                      guide_address1 = "東京都",
                      guide_address2 = "千代田区")
 
+Guide.objects.create(guide_sei = "島津",
+                     guide_mei = "忠恒",
+                     guide_seifuri = "しまづ",
+                     guide_meifuri = "ただつね",
+                     guide_gender = Gender.objects.get(gender_name = "男性"),
+                     guide_seinen = "2019-02-02",
+                     guide_tel = "999-1111-2345",
+                     guide_email = "b@b.com",
+                     guide_pass = "bbbb",
+                     guide_post = "100-0000",
+                     guide_address1 = "東京都",
+                     guide_address2 = "江戸川区")
+
+Guide.objects.create(guide_sei = "細川",
+                     guide_mei = "忠興",
+                     guide_seifuri = "ほそかわ",
+                     guide_meifuri = "ただおき",
+                     guide_gender = Gender.objects.get(gender_name = "男性"),
+                     guide_seinen = "1563-11-28",
+                     guide_tel = "999-1111-2345",
+                     guide_email = "b@b.com",
+                     guide_pass = "bbbb",
+                     guide_post = "100-0000",
+                     guide_address1 = "東京都",
+                     guide_address2 = "千代田区")
+
+
 PreTourSpot.objects.create(preplace_address1 ="山形県",
                            preplace_address2 = "鶴岡市",
                            preplace_name = "羽黒山")
@@ -69,11 +96,31 @@ Spot.objects.create(place_address1 ="山形県",
 
 GuidableTime.objects.create(guide = Guide.objects.get(guide_sei = "真田",
                                                       guide_mei = "幸村"),
-                            guidable_time_from = datetime_str_localize("2020-03-17 10:00"),
-                            guidable_time_to   = datetime_str_localize("2020-03-17 16:00"))
+                            guidable_time_from = datetime_str_localize("2020-05-15 10:00"),
+                            guidable_time_to   = datetime_str_localize("2020-05-15 16:00"))
+
+GuidableTime.objects.create(guide = Guide.objects.get(guide_sei = "真田",
+                                                      guide_mei = "幸村"),
+                            guidable_time_from = datetime_str_localize("2020-05-16 10:00"),
+                            guidable_time_to   = datetime_str_localize("2020-05-16 16:00"))
+
+GuidableTime.objects.create(guide = Guide.objects.get(guide_sei = "島津",
+                                                      guide_mei = "忠恒"),
+                            guidable_time_from = datetime_str_localize("2020-05-16 09:00"),
+                            guidable_time_to   = datetime_str_localize("2020-05-16 17:00"))
 
 GuidableSpot.objects.create(guide = Guide.objects.get(guide_sei = "真田",
                                                       guide_mei = "幸村"),
                             spot  = Spot.objects.get(place_name = "致道博物館"))
 
+GuidableSpot.objects.create(guide = Guide.objects.get(guide_sei = "真田",
+                                                      guide_mei = "幸村"),
+                            spot  = Spot.objects.get(place_name = "荘内神社宝物殿"))
 
+GuidableSpot.objects.create(guide = Guide.objects.get(guide_sei = "真田",
+                                                      guide_mei = "幸村"),
+                            spot  = Spot.objects.get(place_name = "大宝館"))
+
+GuidableSpot.objects.create(guide = Guide.objects.get(guide_sei = "島津",
+                                                      guide_mei = "忠恒"),
+                            spot  = Spot.objects.get(place_name = "大宝館"))
