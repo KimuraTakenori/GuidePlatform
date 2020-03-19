@@ -4,6 +4,8 @@ from django.urls import path
 from appGuide.views.search1 import GuidableTimeListView, GuidableTimeIntervalView, search_guide
 from appGuide.views.reserve1_2 import ReserveGuideTimeView
 
+from appGuide.views.entry1 import EntryView
+
 app_name = "appGuide"
 
 urlpatterns = [
@@ -12,5 +14,9 @@ urlpatterns = [
          GuidableTimeIntervalView.as_view(), name ="search_guide"),
     path("reserve_guide/<int:pk>/<str:cand_time_interval>", # ex. 202002031000_202002031130
          ReserveGuideTimeView.as_view(), name="reserve_guide"),
+
+    path("entry",
+         EntryView.as_view(),
+         name="entry"),
 
     ]
