@@ -129,6 +129,8 @@ class GuidableTimeListView(ListView):
 def search_guidable_times(iform_input):
 
     # pprint(iform_input)
+    # for guidable_time in GuidableTime.objects.all():
+    #     print(guidable_time.guidable_time_from, guidable_time.guidable_time_to)
 
     queryset1 = GuidableTime.objects.filter(
         Q(guidable_time_from__gte = iform_input[ "req_time_from" ],
@@ -136,7 +138,10 @@ def search_guidable_times(iform_input):
           guide__guidablespot__spot__in = iform_input[ "place_choices" ],) |
         Q(guidable_time_to__gte   = iform_input[ "req_time_from" ],
           guidable_time_to__lt    = iform_input[ "req_time_to" ],
-          guide__guidablespot__spot__in = iform_input[ "place_choices" ])).distinct()
+          guide__guidablespot__spot__in = iform_input[ "place_choices" ],) |
+        Q(guidable_time_from__lt = iform_input["req_time_from"],
+          guidable_time_to__gte  = iform_input["req_time_to"],
+          guide__guidablespot__spot__in=iform_input["place_choices"], )).distinct()
 
     return queryset1
 
