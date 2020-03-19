@@ -75,16 +75,19 @@
 
         {% if cand_time_intvals %}
 
-            <dl>
             {% for guideavail in cand_time_intvals %}
                 {% for interval_info in guideavail.intervals %}
-                    <dt>{{ guideavail.guidable_time.guide }}</dt>
-                    <dd>{{ guideavail.guidable_time.guide.get_guidable_spots_str }}</dd>
-                    <dd>{{ interval_info.interval.lower }} - {{ interval_info.interval.upper }}</dd>
-                    <a href="{% url 'appGuide:reserve_guide' guideavail.guidable_time.pk interval_info.interval_str %}">このガイド・時間帯の予約へ</a>
+                    <dl class="mb-2 bg-success">
+                        <dt>{{ guideavail.guidable_time.guide }}</dt>
+                        <dd>{{ guideavail.guidable_time.guide.get_guidable_spots_str }}</dd>
+                        <dd>{{ interval_info.interval.lower }} - {{ interval_info.interval.upper }}</dd>
+                    </dl>
+                    <div class="mb-3">
+                        <a href="{% url 'appGuide:reserve_guide' guideavail.guidable_time.pk interval_info.interval_str %}">このガイド・時間帯の予約へ</a>
+                    </div>
+
                 {% endfor %}
             {% endfor %}
-            </dl>
 
              <p>※注意: 旅行者自身にダブルブッキングが起こらないよう、ご注意下さい。</p>
 
