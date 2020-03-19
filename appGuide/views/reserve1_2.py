@@ -3,6 +3,8 @@
 # pip install portion
 # https://github.com/AlexandreDecan/portion
 
+from datetime import datetime
+
 from django.utils import timezone
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -11,22 +13,32 @@ from django.views.generic import TemplateView
 from ..models import *
 from ..forms.reserve_form import TouristReservationForm
 
+from appGuide.modules.datetime_with_timezone1 import datetime_str_localize
+
 from pprint import pprint
 
 class ReserveGuideTimeView(TemplateView):
 
-    template_name = "appGuide/reserve_guidetime1_1.html"
+    template_name = "appGuide/reserve_guidetime1_2.html"
 
     def get_context_data(self, **kwargs):
 
         context = super().get_context_data(**kwargs)
         guidable_time = GuidableTime.objects.get(pk = self.kwargs[ "pk" ])
+        cdtimintvlstr = self.kwargs[ "cand_time_interval" ]
+
+        req_time_from, req_time_to = [
+            datetime_str_localize(tmpstr, "%Y%m%d%H%M")
+            for tmpstr in cdtimintvlstr.split("_")
+        ]
 
         if "reserve_form" not in vars(self):
             self.reserve_form = TouristReservationForm()
             self.reserve_form.fields[ "spot" ].queryset = guidable_time.guide.get_guidable_spots()
 
         context[ "guidable_time" ] = guidable_time
+        context[ "req_time_from" ] = req_time_from
+        context[ "req_time_to"   ] = req_time_to
         context[ "reserve_form" ]  = self.reserve_form
 
         return context
@@ -35,20 +47,29 @@ class ReserveGuideTimeView(TemplateView):
     def post(self, request, *args, **kwargs):
         # CHECK DOUBLE BOOKINGS!!!
 
+        guidable_time = GuidableTime.objects.get(pk=self.kwargs[ "pk" ])
+        cdtimintvlstr = self.kwargs[ "cand_time_interval" ]
+
         self.reserve_form = TouristReservationForm(data = self.request.POST)
 
         if self.reserve_form.is_valid():
 
             tourist       = self.reserve_form.save()
-            guidable_time = GuidableTime.objects.get(pk=self.kwargs["pk"])
-            cdtimintvlstr = self.kwargs[ "cand_time_interval" ]
             spot          = self.reserve_form.cleaned_data[ "spot" ]
+
+            req_time_from, req_time_to = [
+                datetime_str_localize(tmpstr, "%Y%m%d%H%M")
+                for tmpstr in cdtimintvlstr.split("_")
+            ]
+
+            # Check once more to confirm that the time interval is
+            # still available, - not occupied by other tourist.
 
             Reservation.objects.create(
                 tourist               = tourist,
                 reservation_ymdt      = timezone.localtime(),
-                reservation_time_from = guidable_time.guidable_time_from,
-                reservation_time_to   = guidable_time.guidable_time_to,
+                reservation_time_from = req_time_from,
+                reservation_time_to   = req_time_to,
                 spot                  = spot,
                 guidable_time         = guidable_time,
             )

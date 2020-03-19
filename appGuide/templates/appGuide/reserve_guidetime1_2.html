@@ -1,0 +1,100 @@
+{% extends 'appGuide/Guide_base1_2.html' %}
+{% load static %}
+
+
+{% block main_body %}
+
+<H2 class="mt-2 p-2">ガイド予約</H2>
+    <dl class="mt-2 p-2">
+        <dt>ガイド名</dt>
+        <dd>{{ guidable_time.guide }}</dd>
+        <dt>ガイド可能場所</dt>
+        <dd>{{ guidable_time.guide.get_guidable_spots_str }}</dd>
+        <dt>ガイド予約時間</dt>
+        <dd>{{ req_time_from }} - {{ req_time_to }}</dd>
+    </dl>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {# {{ reserve_form }} #}
+
+        <p>
+            {{ reserve_form.spot.errors }}
+            <label for="{{ reserve_form.spot.id_for_label }}">{{ reserve_form.spot.label }}</label>
+            {{ reserve_form.spot }}
+        </p>
+
+        <p>
+            {{ reserve_form.user_sei.errors }}
+            <label for="{{ reserve_form.user_sei.id_for_label }}">{{ reserve_form.user_sei.label }}</label>
+            {{ reserve_form.user_sei }}
+
+            {{ reserve_form.user_mei.errors }}
+            <label for="{{ reserve_form.user_mei.id_for_label }}">{{ reserve_form.user_mei.label }}</label>
+            {{ reserve_form.user_mei }}
+        </p>
+        <p>
+            {{ reserve_form.user_seifuri.errors }}
+            <label for="{{ reserve_form.user_seifuri.id_for_label }}">{{ reserve_form.user_seifuri.label }}</label>
+            {{ reserve_form.user_seifuri }}
+
+            {{ reserve_form.user_meifuri.errors }}
+            <label for="{{ reserve_form.user_meifuri.id_for_label }}">{{ reserve_form.user_meifuri.label }}</label>
+            {{ reserve_form.user_meifuri }}
+        </p>
+        <p>
+            {{ reserve_form.user_gender.errors }}
+            <label for="{{ reserve_form.user_gender.id_for_label }}">{{ reserve_form.user_gender.label }}</label>
+            {{ reserve_form.user_gender }}
+
+            {{ reserve_form.user_seinen.errors }}
+            <label for="{{ reserve_form.user_seinen.id_for_label }}">{{ reserve_form.user_seinen.label }}</label>
+            {{ reserve_form.user_seinen }}
+        </p>
+
+        <p>
+            {{ reserve_form.user_tel.errors }}
+            <label for="{{ reserve_form.user_tel.id_for_label }}">{{ reserve_form.user_tel.label }}</label>
+            {{ reserve_form.user_tel }}
+
+            {{ reserve_form.user_email.errors }}
+            <label for="{{ reserve_form.user_email.id_for_label }}">{{ reserve_form.user_email.label }}</label>
+            {{ reserve_form.user_email }}
+        </p>
+
+        <p>
+            {{ reserve_form.user_pass.errors }}
+            <label for="{{ reserve_form.user_pass.id_for_label }}">{{ reserve_form.user_pass.label }}</label>
+            {{ reserve_form.user_pass }}
+        </p>
+
+        <p>
+            {{ reserve_form.user_post.errors }}
+            <label for="{{ reserve_form.user_post.id_for_label }}">{{ reserve_form.user_post.label }}</label>
+            {{ reserve_form.user_post }}
+
+            {{ reserve_form.user_address1.errors }}
+            <label for="{{ reserve_form.user_address1.id_for_label }}">{{ reserve_form.user_address1.label }}</label>
+            {{ reserve_form.user_address1 }}
+        </p>
+
+        <p>
+            {{ reserve_form.user_address2.errors }}
+            <label for="{{ reserve_form.user_address2.id_for_label }}">{{ reserve_form.user_address2.label }}</label>
+            {{ reserve_form.user_address2 }}
+
+            {{ reserve_form.user_address3.errors }}
+            <label for="{{ reserve_form.user_address3.id_for_label }}">{{ reserve_form.user_address3.label }}</label>
+            {{ reserve_form.user_address3 }}
+        </p>
+
+
+        <button type="submit" class="btn btn-primary" id="id_submit_button">予約する</button>
+
+    </form>
+
+    <p>※注意: 現在旅行者・ガイド共にダブルブッキング回避処理を行っていません。</p>
+
+{% endblock %}
+

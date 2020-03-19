@@ -1,6 +1,6 @@
 
 from appGuide.models import *
-from appGuide.modules.datetime_with_timezone1 import datetime_str_localize
+c
 
 Gender.objects.create(gender_name = "男性")
 Gender.objects.create(gender_name = "女性")

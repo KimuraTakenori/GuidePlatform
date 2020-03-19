@@ -8,13 +8,75 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 from django.db.models import Q
+
+from django.utils.timezone import localtime
 
 from appGuide.models import *
 from appGuide.forms.search_form import SearchGuideForm
 
+from ..modules.search_guidable_time_intervals1_1 import  extract_guidable_time_intervals
+
 from pprint import pprint
+
+class GuidableTimeIntervalView(TemplateView):
+    model = GuidableTime
+    template_name = "appGuide/guidetime_interval1_1.html"
+
+    def get_context_data(self, **kwargs):
+
+        context = super().get_context_data(**kwargs)
+        if "search_form" in vars(self):
+            search_form = self.search_form
+        else:
+            search_form = SearchGuideForm()
+        context[ "search_form" ] = search_form
+
+        if "cand_time_intvals" in vars(self):
+            cand_time_intvals = self.cand_time_intvals
+        else:
+            cand_time_intvals = None
+        context[ "cand_time_intvals" ] = cand_time_intvals
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+
+        self.search_form = SearchGuideForm(data = self.request.POST)
+
+        """ Checking double-booking of a tourist not implemented yet. """
+
+        if "search_form" in vars(self) and self.search_form.is_valid():
+            guidable_times = search_guidable_times(self.search_form.cleaned_data)
+            req_time_from  = self.search_form.cleaned_data[ "req_time_from" ]
+            req_time_to    = self.search_form.cleaned_data[ "req_time_to"   ]
+            self.request.session[ "Request time" ] = {
+                "from" : req_time_from.strftime("%Y/%m/%d %H:%M"),
+                "to"   : req_time_to.strftime("%Y/%m/%d %H:%M"),
+            }
+            self.request.session.modified = True
+
+            self.cand_time_intvals = []
+            for guidable_time in guidable_times:
+
+                intervals_info = [
+                    { "interval"     : interval,
+                      "interval_str" :
+                         localtime(interval.lower).strftime("%Y%m%d%H%M") + "_"
+                         + localtime(interval.upper).strftime("%Y%m%d%H%M")
+                     } for interval in extract_guidable_time_intervals(guidable_time,
+                                                                       req_time_from,
+                                                                       req_time_to) ]
+
+                self.cand_time_intvals.append(
+                    { "guidable_time" : guidable_time,
+                      "intervals"     : intervals_info })
+
+            pprint(self.cand_time_intvals)
+
+        return self.get(request, *args, **kwargs)
+
 
 class GuidableTimeListView(ListView):
     model = GuidableTime

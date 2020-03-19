@@ -31,13 +31,8 @@ def extract_guidable_time_intervals(guidable_time_obj,
                                               already_reserv.reservation_time_to)
         cand_intvals -= already_reserv_intval
 
-    return cand_intvals
+    if cand_intvals.empty:
+        return []
+    else:
+        return list(cand_intvals)
 
-
-    # queryset1 = GuidableTime.objects.filter(
-    #     Q(guidable_time_from__gte = iform_input[ "req_time_from" ],
-    #       guidable_time_from__lt  = iform_input[ "req_time_to"],
-    #       guide__guidablespot__spot__in = iform_input[ "place_choices" ],) |
-    #     Q(guidable_time_to__gte   = iform_input[ "req_time_from" ],
-    #       guidable_time_to__lt    = iform_input[ "req_time_to" ],
-    #       guide__guidablespot__spot__in = iform_input[ "place_choices" ])).distinct()
