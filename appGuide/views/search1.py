@@ -73,7 +73,7 @@ class GuidableTimeIntervalView(TemplateView):
                     { "guidable_time" : guidable_time,
                       "intervals"     : intervals_info })
 
-            pprint(self.cand_time_intvals)
+            # pprint(self.cand_time_intvals)
 
         return self.get(request, *args, **kwargs)
 

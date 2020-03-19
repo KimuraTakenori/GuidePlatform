@@ -43,7 +43,8 @@ def extract_guidable_time_intervals(guidable_time_obj,
     if cand_intvals.empty:
         return []
     else:
-        return list(cand_intvals)
+        return [ cand_intval for cand_intval in list(cand_intvals)
+                 if cand_intval.upper > cand_intval.lower ]
 
 def check_avail_full_interval(guidable_time_obj,
                               request_time_from, request_time_to):
@@ -57,10 +58,10 @@ def check_avail_full_interval(guidable_time_obj,
     remain_intval = req_intval
 
     for already_reserv in already_reservs:
-        print(remain_intval, already_reserv)
+        # print(remain_intval, already_reserv)
         remain_intval -= Interval.open(already_reserv.reservation_time_from,
                                        already_reserv.reservation_time_to)
-        print("--->", remain_intval)
+        # print("--->", remain_intval)
 
     return remain_intval == req_intval
 
