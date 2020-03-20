@@ -41,6 +41,7 @@
             {{ reserve_form.spot.errors }}
             <label for="{{ reserve_form.spot.id_for_label }}">{{ reserve_form.spot.label }}</label>
             {{ reserve_form.spot }}
+            {# class="form-control" not specified #}
         </div>
 
         <div class="form-row">
@@ -73,12 +74,14 @@
             {{ reserve_form.user_gender.errors }}
             <label for="{{ reserve_form.user_gender.id_for_label }}">{{ reserve_form.user_gender.label }}</label>
             {{ reserve_form.user_gender }}
+            {# class="form-control" not specified #}
         </div>
         <div class="form-group mt-3">
             {{ reserve_form.user_seinen.errors }}
             <label for="{{ reserve_form.user_seinen.id_for_label }}">{{ reserve_form.user_seinen.label }}</label>
             {{ reserve_form.user_seinen }}
             (入力例: 1955-05-05)
+            {# class="form-control" not specified #}
         </div>
 
         <div class="form-row">
@@ -99,6 +102,7 @@
             {{ reserve_form.user_pass.errors }}
             <label for="{{ reserve_form.user_pass.id_for_label }}">{{ reserve_form.user_pass.label }}</label>
             {{ reserve_form.user_pass }}
+            {# class="form-control" not specified #}
         </div>
 
         <div class="form-row">
